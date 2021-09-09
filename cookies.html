@@ -1,0 +1,72 @@
+<style>
+body {
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btnn {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 1px solid white;
+}
+
+</style>
+
+<div id="colors">
+    <span class="btnn" style="background-color: red;"></span>
+    <span class="btnn" style="background-color: gray;"></span>
+    <span class="btnn" style="background-color: greenyellow;"></span>
+    <span class="btnn" style="background-color: blue;"></span>
+    <span class="btnn" style="background-color: #66f7ff;"></span>
+    <span class="btnn" style="background-color: #ff00f5;"></span>
+    <span class="btnn" style="background-color: #fefdff;"></span>
+    <span class="btnn" style="background-color: #000000;"></span>
+    <span class="btnn" style="background-color: rgba(0, 0, 0, 0.4);"></span>
+</div>
+
+
+<script>
+    var setCookie = function (n, val) {
+    var exdays = 30;
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = n + "=" + val + "; " + expires;
+};
+
+var getCookie = function (n) {
+    var name = n + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+};
+
+document.onclick = function (e) {
+    if (e.target.className == 'btnn') {
+        var favColor = e.target.style.backgroundColor;
+        setCookie('color', favColor);
+        document.body.style.backgroundColor = favColor;
+        console.log(favColor);
+    }
+};
+
+window.onload = function () {
+    var favColor = document.body.style.backgroundColor;
+    var color = getCookie('color');
+    if (color === '') {
+        document.body.style.backgroundColor = favColor;
+    } else {
+      document.body.style.backgroundColor = color;
+    }
+};
+</script>
